@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
+const baseURL = process.env.REACT_APP_BACKEND_URL /*|| "http://localhost:3003/mortgage"*/;
 export default class Application extends Component {
     state = {
         address: "",

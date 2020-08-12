@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
-
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
+import Application from "../components/Application";
+const baseURL = process.env.REACT_APP_BACKEND_URL /*|| "http://localhost:3003/mortgage"*/;
 export default class Login extends Component {
     state = {
         loginUsername: "",
@@ -27,7 +27,6 @@ export default class Login extends Component {
     }).then (res => res.json())
         .then (resJson => {console.log(resJson);
         this.setState({
-            login:true,
             loginUsername: resJson.username,
             loginPassword: "",
             token:resJson.token,
@@ -39,11 +38,19 @@ export default class Login extends Component {
     
     }
 
+    logout = (event) => {
+        event.preventDefault();
+        this.setState({ loginUsername: "",
+                        loginPassword: "",
+                        isLogin: false, 
+                        token:""});
+    }
 
     render() {
       return (
-        <div>
-                    {this.state.isLogin? <button className="btn btn-danger form-control" style={{marginLeft:"100px", width:"100px"}}>Logout</button>:<ul className="nav justify-content-center">
+        <div>       
+                    {this.state.isLogin?<div> <button className="btn btn-danger form-control" style={{marginLeft:"100px", width:"100px"}} onClick={this.logout}>Logout</button>
+                       <Application/> </div>:<ul className="nav justify-content-center">
                     <li className="nav-item">
                       <input className="form-control" type="text" onChange={this.handleChange} value={this.state.loginUsername} id="loginUsername" name="loginUsername" placeholder="email (Username)"/>
                     </li>

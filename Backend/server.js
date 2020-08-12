@@ -3,11 +3,12 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3003;
-const mongodb_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mortgageappnew';
+const mongodb_URI = process.env.MONGODB_URI /*|| 'mongodb://localhost:27017/mortgageappnew'*/;
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user.js');
-const TOKEN_SECRET = process.env.SECRET || "SECRET_MORTGAGEAPP";
+const TOKEN_SECRET = process.env.SECRET /*|| "SECRET_MORTGAGEAPP"*/;
+const path = require('path');
 
 // Error / Disconnection
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
@@ -20,13 +21,15 @@ mongoose.connection.once('open', ()=>{
 
 // middleware
 app.use(express.json());
+app.use(express.static(path.join("public/build")));
+
 
 //GET Route
 app.get("/", (req,res) => {
   res.send("Mortgage App");
 });
 
-const whitelist = ['http://localhost:3000/', 'http://localhost:3000'];
+/* const whitelist = ['http://localhost:3000/', 'http://localhost:3000'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) >= 0) {
@@ -37,8 +40,10 @@ const corsOptions = {
   },
 }; 
 
-app.use(cors(corsOptions)); 
-
+app.use(cors(corsOptions));  */
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "public/build", "index.html"));
+});
 
  // CREATE ROUTE
 app.post('/mortgage', (req, res) => {
