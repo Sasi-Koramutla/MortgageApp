@@ -41,7 +41,7 @@ app.use(cors(corsOptions));
 
 
  // CREATE ROUTE
-app.post('/mortgageapp', (req, res) => {
+app.post('/mortgage', (req, res) => {
   console.log(req.body);
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     userModel.create(req.body, (error, createdMortgageApp) => {
@@ -51,6 +51,33 @@ app.post('/mortgageapp', (req, res) => {
       }
       res.status(200).send(createdMortgageApp) 
       console.log(createdMortgageApp);
+    })
+  });
+
+// LOGIN ROUTE
+app.post('/mortgage/login', (req, res) => {
+  console.log(req.body);
+    userModel.findOne({username:req.body.username}, (err, foundUser) => {
+      if (err) {
+        res.status(400).json({ error: err.message })
+      }
+      console.log("success")
+      if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+        let token = jwt.sign(
+          { userId: foundUser.id, username: foundUser.username},
+          TOKEN_SECRET,
+          { expiresIn: '1h' });
+        res.status(200).json({
+          id: foundUser.id, 
+          username: foundUser.username,
+          password:foundUser.password,
+          token: token
+        });
+
+    } else {
+        res.status(401).json({message:"Invalid Username/Password"});
+    }
+     
     })
   });
 

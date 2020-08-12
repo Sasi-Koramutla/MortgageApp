@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003";
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
 export default class Signup extends Component {
     state = {
         firstName: "",
@@ -18,7 +18,7 @@ export default class Signup extends Component {
     createUser = (event) => {
       event.preventDefault();
 
-      fetch(this.state.baseURL + '/mortgageapp', {
+      fetch(this.state.baseURL , {
         method: 'POST',
         body: JSON.stringify({firstName: this.state.firstName, 
                               lastName: this.state.lastName, 

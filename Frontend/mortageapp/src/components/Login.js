@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003";
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
 export default class Login extends Component {
     state = {
         loginUsername: "",
@@ -43,7 +43,7 @@ export default class Login extends Component {
     render() {
       return (
         <div>
-                    {this.state.isLogin? <button className="btn btn-primary form-control" style={{marginLeft:"6px"}}>Logout</button>:<ul className="nav justify-content-center">
+                    {this.state.isLogin? <button className="btn btn-danger form-control" style={{marginLeft:"100px", width:"100px"}}>Logout</button>:<ul className="nav justify-content-center">
                     <li className="nav-item">
                       <input className="form-control" type="text" onChange={this.handleChange} value={this.state.loginUsername} id="loginUsername" name="loginUsername" placeholder="email (Username)"/>
                     </li>
@@ -51,7 +51,7 @@ export default class Login extends Component {
                         <input  className="form-control" type="password" onChange={this.handleChange} value={this.state.loginPassword} id="loginPassword" name="loginPassword" placeholder="Password"/>
                     </li>
                     <li className="nav-item">    
-                    <button className="btn btn-primary form-control" style={{marginLeft:"6px"}}onClick={this.login}>Login</button>
+                    <button className="btn btn-dark form-control" style={{marginLeft:"6px"}}onClick={this.login}>Login</button>
                     </li>
                   </ul>}
         </div>
