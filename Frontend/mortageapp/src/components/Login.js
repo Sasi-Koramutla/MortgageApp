@@ -5,7 +5,8 @@ export default class Login extends Component {
     state = {
         loginUsername: "",
         loginPassword: "",
-        baseURL: baseURL
+        baseURL: baseURL,
+        isLogin:false
       }
   
       handleChange = (event) => {
@@ -31,7 +32,7 @@ export default class Login extends Component {
             loginPassword: "",
             token:resJson.token,
             userid:resJson.id,
-            savedTweets:resJson.savedTweets
+            isLogin:true
         })
         localStorage.setItem("loginInfo",JSON.stringify({id:resJson.id, loginPassword: resJson.password, loginUsername:resJson.username, token:resJson.token}));
     }).catch (error => console.error({'Error': error}))
@@ -42,7 +43,7 @@ export default class Login extends Component {
     render() {
       return (
         <div>
-                    <ul className="nav justify-content-center">
+                    {this.state.isLogin? <button className="btn btn-primary form-control" style={{marginLeft:"6px"}}>Logout</button>:<ul className="nav justify-content-center">
                     <li className="nav-item">
                       <input className="form-control" type="text" onChange={this.handleChange} value={this.state.loginUsername} id="loginUsername" name="loginUsername" placeholder="email (Username)"/>
                     </li>
@@ -52,7 +53,7 @@ export default class Login extends Component {
                     <li className="nav-item">    
                     <button className="btn btn-primary form-control" style={{marginLeft:"6px"}}onClick={this.login}>Login</button>
                     </li>
-                  </ul>
+                  </ul>}
         </div>
       )
     }
