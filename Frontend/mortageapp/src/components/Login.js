@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import Application from "../components/Application";
-const baseURL = process.env.REACT_APP_BACKEND_URL /*|| "http://localhost:3003/mortgage"*/;
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
 export default class Login extends Component {
     state = {
         loginUsername: "",

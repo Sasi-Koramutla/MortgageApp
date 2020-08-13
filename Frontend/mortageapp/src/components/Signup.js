@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL /*|| "http://localhost:3003/mortgage"*/;
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
 export default class Signup extends Component {
     state = {
         firstName: "",
@@ -45,7 +45,7 @@ export default class Signup extends Component {
     render() {
       return (
         <div>
-            <form className="form justify-content-center" style={{width:"50%", margin:"50px"}} onSubmit={this.createUser}>
+            <form className="form justify-content-center" onSubmit={this.createUser}>
             <div className="form-group">
                   <input className="form-control" type="text" onChange={this.handleChange} value={this.state.firstName} placeholder="First name" id="firstName" name="firstName"/>
               </div>
@@ -59,7 +59,7 @@ export default class Signup extends Component {
                   <input  className="form-control" type="password" onChange={this.handleChange} value={this.state.password} id="password" name="password" placeholder="Password"/>
               </div>
               <div className="form-group">
-                  <input className="btn btn-primary form-control" style={{width:"70%"}} type="submit" value="Sign up"/>
+                  <input className="btn btn-primary form-control" type="submit" value="Sign up"/>
               </div>  
             </form>
         </div>
