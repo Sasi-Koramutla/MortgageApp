@@ -5,6 +5,14 @@ const mortgageSchema = mongoose.Schema({
     lastName: {type: String, required: true},
     password: {type: String, required: true},
     username: {type: String, required: true, unique: true},
+    address: {type: String},
+    city: {type: String},
+    state: {type: String},
+    zip: {type: String},
+    description: {type: String},
+    yearBuilt: {type: String},
+    loanPurpose: {type: String},
+    ssn: {type: String},
     validated: false
 })
 

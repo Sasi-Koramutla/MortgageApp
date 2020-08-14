@@ -23,7 +23,15 @@ export default class Signup extends Component {
         body: JSON.stringify({firstName: this.state.firstName, 
                               lastName: this.state.lastName, 
                               username: this.state.username, 
-                              password: this.state.password}
+                              password: this.state.password,
+                              address: "",
+                              city: "",
+                              state: "",
+                              zip: "",
+                              description: "",
+                              yearBuilt: "",
+                              loanPurpose: "",
+                              ssn: ""}
                               ),
         headers: {
           'Content-Type': 'application/json'

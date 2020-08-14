@@ -17,12 +17,97 @@ export default class Application extends Component {
       handleChange = (event) => {
         this.setState({ [event.currentTarget.id]: event.currentTarget.value})
       }
+    
+        //Sasi - create route function
+    updateUser = (event) => {
+        event.preventDefault();
+        let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+        fetch(this.state.baseURL , {
+          method: 'PUT',
+          body: JSON.stringify({address: this.state.address,
+                                city: this.state.city,
+                                state: this.state.state,
+                                zip: this.state.zip,
+                                description: this.state.description,
+                                yearBuilt: this.state.yearBuilt,
+                                loanPurpose: this.state.loanPurpose,
+                                ssn: this.state.ssn,
+                                id: loginInfo.id}
+                                ),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then (res => res.json())
+          .then (resJson => {console.log(resJson);
+            this.setState({
+              signUp:false,
+              address: resJson.address,
+              city: resJson.city,
+              state: resJson.state,
+              zip: resJson.zip,
+              description: resJson.description,
+              yearBuilt: resJson.yearBuilt,
+              loanPurpose: resJson.loanPurpose,
+              ssn: resJson.ssn
+            }) 
+            localStorage.setItem("loginInfo",JSON.stringify({address: resJson.address,
+                                                            city: resJson.city,
+                                                            state: resJson.state,
+                                                            zip: resJson.zip,
+                                                            description: resJson.description,
+                                                            yearBuilt: resJson.yearBuilt,
+                                                            loanPurpose: resJson.loanPurpose,
+                                                            ssn: resJson.ssn}));
+        }).catch (error => console.error({'Error': error}))
+  
+      }
+
+  
+      getUser = () => {
+        fetch(this.state.baseURL + "/"+ this.props.loginUsername).then (res => res.json())
+        .then (resJson => {console.log(resJson);
+          this.setState({
+            address: resJson.address,
+            city: resJson.city,
+            state: resJson.state,
+            zip: resJson.zip,
+            description: resJson.description,
+            yearBuilt: resJson.yearBuilt,
+            loanPurpose: resJson.loanPurpose,
+            ssn: resJson.ssn
+          }) 
+          localStorage.setItem("loginInfo",JSON.stringify({loginUsername: this.props.loginUsername,
+                                                          id:resJson.id,
+                                                          address: resJson.address,
+                                                          city: resJson.city,
+                                                          state: resJson.state,
+                                                          zip: resJson.zip,
+                                                          description: resJson.description,
+                                                          yearBuilt: resJson.yearBuilt,
+                                                          loanPurpose: resJson.loanPurpose,
+                                                          ssn: resJson.ssn}));
+      }).catch (error => console.error({'Error': error}));
+      
+      }
+  
 
 
+    componentDidMount() {
+     this.getUser(); 
+    let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    this.setState({address: loginInfo.address,
+                    city: loginInfo.city,
+                    state: loginInfo.state,
+                    zip: loginInfo.zip,
+                    description: loginInfo.description,
+                    yearBuilt: loginInfo.yearBuilt,
+                    loanPurpose: loginInfo.loanPurpose,
+                    ssn: loginInfo.ssn});
+    }  
     render() {
       return (
         <div>
-            <form className="form justify-content-center" style={{width:"50%", margin:"50px"}} onSubmit={this.createUser}>
+            <form className="form justify-content-center" style={{width:"50%", margin:"50px"}} onSubmit={this.updateUser}>
             <div className="form-group">
                   <input className="form-control" type="text" onChange={this.handleChange} value={this.state.address} placeholder="Property Address" id="address" name="address"/>
               </div>

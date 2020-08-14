@@ -6,7 +6,8 @@ export default class Login extends Component {
         loginUsername: "",
         loginPassword: "",
         baseURL: baseURL,
-        isLogin:false
+        isLogin:false,
+        loginInfo:{}
       }
   
       handleChange = (event) => {
@@ -33,7 +34,15 @@ export default class Login extends Component {
             userid:resJson.id,
             isLogin:true
         })
-        localStorage.setItem("loginInfo",JSON.stringify({id:resJson.id, loginPassword: resJson.password, loginUsername:resJson.username, token:resJson.token}));
+        localStorage.setItem("loginInfo",JSON.stringify({id:resJson.id, loginPassword: resJson.password, loginUsername:resJson.username, token:resJson.token, address: resJson.address,
+                                                          city: resJson.city,
+                                                          state: resJson.state,
+                                                          zip: resJson.zip,
+                                                          description: resJson.description,
+                                                          yearBuilt: resJson.yearBuilt,
+                                                          loanPurpose: resJson.loanPurpose,
+                                                          ssn: resJson.ssn}));
+          this.setState({loginInfo:JSON.parse(localStorage.getItem("loginInfo"))})
     }).catch (error => console.error({'Error': error}))
     
     }
@@ -44,13 +53,22 @@ export default class Login extends Component {
                         loginPassword: "",
                         isLogin: false, 
                         token:""});
+        localStorage.clear();
+    }
+
+    componentDidMount() {
+      //Sasi = Storing token and userid
+      let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+      console.log(loginInfo);
+      if(loginInfo && loginInfo.token)
+      this.setState({token:loginInfo.token, userid:loginInfo.id, loginUsername:loginInfo.loginUsername, login:true, loginInfo:loginInfo});
     }
 
     render() {
       return (
         <div>       
                     {this.state.isLogin?<div> <button className="btn btn-danger form-control" style={{marginLeft:"100px", width:"100px"}} onClick={this.logout}>Logout</button>
-                       <Application/> </div>:<ul className="nav justify-content-center">
+                       <Application loginUsername={this.state.loginUsername}/> </div>:<ul className="nav justify-content-center">
                     <li className="nav-item">
                       <input className="form-control" type="text" onChange={this.handleChange} value={this.state.loginUsername} id="loginUsername" name="loginUsername" placeholder="email (Username)"/>
                     </li>

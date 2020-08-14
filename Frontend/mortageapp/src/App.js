@@ -17,7 +17,12 @@ export default class App extends Component {
     this.setState({isSignUp: !this.state.isSignUp});
     console.log(this.state.isSignUp);
     }
-
+  
+   componentDidMount() {
+      //Sasi = Storing token and userid
+      let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+      console.log(loginInfo);
+    }
   render() {
     return (
       <div className="main" style={{marginTop:"50px"}}>
