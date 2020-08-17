@@ -2,17 +2,16 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 const PORT = process.env.PORT || 3003;
-const mongodb_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mortgageappnew_test';
+const mongodb_URI = process.env.MONGODB_URI  || 'mongodb://localhost:27017/mortgageappaug13';
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user.js');
 const TOKEN_SECRET = process.env.SECRET  || "SECRET_MORTGAGEAPP";
-//const path = require('path');
 
 //nodemailer logic from nodemailer.com
 const nodemailer = require("nodemailer");
-const { getMaxListeners } = require('./models/user.js');
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -34,15 +33,14 @@ mongoose.connection.once('open', ()=>{
 
 // middleware
 app.use(express.json());
-//app.use(express.static(path.join("public/build")));
-
+app.use(express.static(path.join("public/build")));
 
 //GET Route
-app.get("/", (req,res) => {
+/* app.get("/", (req,res) => {
   res.send("Mortgage App");
-});
+}); */
 
-const whitelist = ['http://localhost:3000/', 'http://localhost:3000'];
+const whitelist = ['http://localhost:3000/', 'http://localhost:3000', 'https://master.d3acagn19vzppe.amplifyapp.com/', 'https://master.d3acagn19vzppe.amplifyapp.com'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) >= 0) {
@@ -51,12 +49,8 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
-}; 
-
+};  
 app.use(cors(corsOptions)); 
-/* app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "public/build", "index.html"));
-}); */
 
  // CREATE ROUTE
 app.post('/mortgage', (req, res) => {
@@ -177,6 +171,10 @@ app.post('/mortgage/login', (req, res) => {
         }
          
         })
+      });
+
+  app.use((req, res, next) => {
+        res.sendFile(path.resolve(__dirname, "public/build", "index.html"));
       });
 
   app.listen(PORT, () => {

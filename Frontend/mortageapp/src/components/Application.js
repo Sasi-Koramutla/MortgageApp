@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003";
 export default class Application extends Component {
     state = {
         address: "",
@@ -22,7 +22,7 @@ export default class Application extends Component {
     updateUser = (event) => {
         event.preventDefault();
         let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
-        fetch(this.state.baseURL , {
+        fetch(this.state.baseURL +"/mortgage", {
           method: 'PUT',
           body: JSON.stringify({address: this.state.address,
                                 city: this.state.city,
@@ -64,7 +64,7 @@ export default class Application extends Component {
 
   
       getUser = () => {
-        fetch(this.state.baseURL + "/"+ this.props.loginUsername).then (res => res.json())
+        fetch(this.state.baseURL + "/mortgage/"+ this.props.loginUsername).then (res => res.json())
         .then (resJson => {console.log(resJson);
           this.setState({
             address: resJson.address,
@@ -95,6 +95,7 @@ export default class Application extends Component {
     componentDidMount() {
      this.getUser(); 
     let loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    if(loginInfo)
     this.setState({address: loginInfo.address,
                     city: loginInfo.city,
                     state: loginInfo.state,

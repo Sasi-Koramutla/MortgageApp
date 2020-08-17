@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import Application from "../components/Application";
-const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/mortgage";
+const baseURL = process.env.REACT_APP_BACKEND_URL  || "http://localhost:3003";
 export default class Login extends Component {
     state = {
         loginUsername: "",
@@ -17,7 +17,7 @@ export default class Login extends Component {
       //Sasi - create route function
     login = (event) => {
     event.preventDefault();
-    fetch(this.state.baseURL + '/login', {
+    fetch(this.state.baseURL + '/mortgage/login', {
         method: 'POST',
         body: JSON.stringify({username: this.state.loginUsername, 
                             password: this.state.loginPassword}
@@ -42,8 +42,7 @@ export default class Login extends Component {
                                                           yearBuilt: resJson.yearBuilt,
                                                           loanPurpose: resJson.loanPurpose,
                                                           ssn: resJson.ssn}));
-          this.setState({loginInfo:JSON.parse(localStorage.getItem("loginInfo"))})
-    }).catch (error => console.error({'Error': error}))
+      }).catch (error => console.error({'Error': error}))
     
     }
 

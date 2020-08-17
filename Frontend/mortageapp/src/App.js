@@ -25,7 +25,9 @@ export default class App extends Component {
     }
   render() {
     return (
-      <div className="main" style={{marginTop:"50px"}}>
+      <div className="main">
+            <div className="jumbotron"> Mortgage Application
+            <h6>Sign up now to get your mortgage approved!</h6></div>
             {this.state.isSignUp ? 
              <div className="login">
               <Login/>
@@ -38,15 +40,12 @@ export default class App extends Component {
              <div className="signUp">
               <Signup/>
               <div style={{marginTop:"0px"}}>
-              Already have an account? Login
-              <button className="loginButton" onClick={this.signUp}> here </button>
+              Already have an account? <b>Login 
+              <button className="loginButton" onClick={this.signUp}> here </button></b>
               </div>
             </div>
-             }
-
-            
-
-         
+             }         
+           <div className="carousel">**********Carousel Planned************</div>  
       </div>
     )
   }
