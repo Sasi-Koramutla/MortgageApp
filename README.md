@@ -1,18 +1,16 @@
+# MortgageApp
 ![Mortgage](https://github.com/Sasi-Koramutla/mortgageapp/blob/master/house.jpg)
 
-# MortgageApp
+## Deployed Link
 https://master.d3acagn19vzppe.amplifyapp.com/
 
 ## Description
-This is a MERN-stack app built using React, Express and MongoDB. The application allows users to signup, login and submit mortgage application information. 
+This is a MERN-stack app built using React, Express and MongoDB. The application allows users to signup, login/logout and submit/update mortgage application information. 
 
-#Technologies Used
-This has been built using React, Express, Node, Nodemailer, Bootstrap, and MongoDB.
-
-#Using the App
+## Using the App
 In order to use the app, download the full folder for the site to work. You will need a baseline understanding of Express, MongoDB/Mongoose, & React to understand how it is put together and what changes can be made.
 
-#Future Improvements and Deployment Steps
+## Future Improvements and Deployment Steps
 1. Uploading Documents for the Mortgage Application.
 
 2. Implementing a dashboard for the admin.
@@ -32,6 +30,3 @@ In order to use the app, download the full folder for the site to work. You will
 - [Mongoose](http://mongoosejs.com) - Database ORM
 - [Bootstrap](https://getbootstrap.com/) - Fron End Toolkit
 - [VS Code](https://code.visualstudio.com) - Code Editor
-
-## Collaborators
-* Sasi Koramutla
