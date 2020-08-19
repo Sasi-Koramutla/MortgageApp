@@ -39,7 +39,7 @@ app.get("/confirm/:id", (req,res) => {
       }
       if(updatedUser)
       {
-        res.redirect("http://localhost:3000");
+        res.redirect("https://master.d3acagn19vzppe.amplifyapp.com/");
         } 
       });
    //res.status(401).json({message:"Invalid Username/Password"});
