@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user.js');
 const TOKEN_SECRET = process.env.SECRET  || "SECRET_MORTGAGEAPP";
-const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/confirm";
+const backend_url = process.env.REACT_APP_BACKEND_URL_CONFIRM || "http://localhost:3003/confirm";
 
 //nodemailer logic from nodemailer.com
 const nodemailer = require("nodemailer");
