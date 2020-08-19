@@ -66,7 +66,7 @@ export default class Application extends Component {
       getUser = () => {
         fetch(this.state.baseURL + "/mortgage/"+ this.props.loginUsername).then (res => res.json())
         .then (resJson => {console.log(resJson);
-          this.setState({
+           this.setState({
             address: resJson.address,
             city: resJson.city,
             state: resJson.state,

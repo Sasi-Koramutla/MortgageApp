@@ -67,7 +67,7 @@ app.post('/mortgage', (req, res) => {
         to: "sasidhar.kmv@gmail.com, `req.body.username` ", // list of receivers
         subject: "Mortgage App - Verify email address - " + req.body.firstName, // Subject line
         text: "Please validate your email", // plain text body
-        html: "Please validate your email by clicking the link <a href=`http://localhost:3003/mortgage`> Validate email </a>", // html body
+        html: "Please validate your email by clicking the link <a href=`http://localhost:3003/mortgage/req.body.username`> Validate email </a>", // html body
       }); 
       console.log(createdMortgageApp);
     })
