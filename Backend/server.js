@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user.js');
 const TOKEN_SECRET = process.env.SECRET  || "SECRET_MORTGAGEAPP";
+const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3003/confirm";
 
 //nodemailer logic from nodemailer.com
 const nodemailer = require("nodemailer");
@@ -31,6 +32,19 @@ mongoose.connection.once('open', ()=>{
     console.log('connected to mongoose...')
 })
 
+app.get("/confirm/:id", (req,res) => {
+  userModel.findByIdAndUpdate(req.params.id, {$set: {validated: true }}, (err, updatedUser) => {
+      if(err){
+        res.status(400).json({ error: err.message });
+      }
+      if(updatedUser)
+      {
+        res.redirect("http://localhost:3000");
+        } 
+      });
+   //res.status(401).json({message:"Invalid Username/Password"});
+});
+
 // middleware
 app.use(express.json());
 app.use(express.static(path.join("public/build")));
@@ -40,7 +54,7 @@ app.use(express.static(path.join("public/build")));
   res.send("Mortgage App");
 }); */
 
-const whitelist = ['http://localhost:3000/', 'http://localhost:3000', 'https://master.d3acagn19vzppe.amplifyapp.com/', 'https://master.d3acagn19vzppe.amplifyapp.com'];
+const whitelist = ['http://localhost:3000/', 'https://mail.google.com/', 'smtp.gmail.com', 'http://localhost:3000', 'https://master.d3acagn19vzppe.amplifyapp.com/', 'https://master.d3acagn19vzppe.amplifyapp.com'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) >= 0) {
@@ -62,12 +76,13 @@ app.post('/mortgage', (req, res) => {
         res.status(400).json({ error: error.message })
       }
       res.status(200).send(createdMortgageApp);
+      console.log(backend_url);
       transporter.sendMail({
         from: '"Mortgage App" <mortgageappaugust@gmail.com>', // sender address
         to: "sasidhar.kmv@gmail.com, `req.body.username` ", // list of receivers
         subject: "Mortgage App - Verify email address - " + req.body.firstName, // Subject line
         text: "Please validate your email", // plain text body
-        html: "Please validate your email by clicking the link <a href=`http://localhost:3003/mortgage/req.body.username`> Validate email </a>", // html body
+        html: "Please validate your email by clicking the link below. <br/>" + backend_url + "/" + createdMortgageApp.id, // html body
       }); 
       console.log(createdMortgageApp);
     })
@@ -99,7 +114,8 @@ app.post('/mortgage/login', (req, res) => {
           description: foundUser.description,
           yearBuilt: foundUser.yearBuilt,
           loanPurpose: foundUser.loanPurpose,
-          ssn: foundUser.ssn
+          ssn: foundUser.ssn,
+          validated:foundUser.validated
         });
 
     } else {
