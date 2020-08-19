@@ -25,7 +25,7 @@ In order to use the app, download the full folder for the site to work. You will
 - [Express](https://expressjs.com/en/starter/installing.html) - Web Framework
 - [React](https://reactjs.org/) - Frontend Framework
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Authorization Package
-- [nodemailer] https://nodemailer.com/about/ - npm module
+- [nodemailer]https://nodemailer.com/about/ - npm module
 - [MongoDB](https://www.mongodb.com) - Database
 - [Mongoose](http://mongoosejs.com) - Database ORM
 - [Bootstrap](https://getbootstrap.com/) - Fron End Toolkit
