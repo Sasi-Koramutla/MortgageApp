@@ -142,7 +142,7 @@ app.post('/mortgage/login', (req, res) => {
             if(updatedUser)
             {
               console.log("success");
-              setTimeOut(4000,console.log(updatedUser));
+              //setTimeOut(console.log(updatedUser),4000);
 
               res.status(200).json({
               id: updatedUser.id, 
