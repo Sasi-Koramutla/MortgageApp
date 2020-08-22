@@ -189,6 +189,21 @@ app.post('/mortgage/login', (req, res) => {
         })
       });
 
+      //delete user
+app.delete('/mortgage/:id', (req, res) => {
+  console.log("delete user ", req.params.id);
+  userModel.findByIdAndRemove(req.params.id, { useFindAndModify: false }, (err, data)=>{
+    if(err){
+      res.status(400).json({ error: err.message });
+    }
+    if(data)
+    {
+      res.status(200).json({
+        id:data.id,
+      });
+      } 
+  });
+});
   app.use((req, res, next) => {
         res.sendFile(path.resolve(__dirname, "public/build", "index.html"));
       });
